@@ -1,7 +1,8 @@
 
 class-diagram-Cul d'Ampolla
 uml :
-![image](https://github.com/pounct/mysql-estructura/assets/53088375/555c2413-8872-49fa-a1fd-b7556499137c)
+![image](https://github.com/pounct/mysql-estructura/assets/53088375/4c787d17-9d46-472a-ae2e-cbb232ecb765)
+
 
 conceptor phpmyadmin:
 
