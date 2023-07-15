@@ -3,9 +3,9 @@ estuctua Optica Cul d'Ampolla
 
 
 
-CREATE DATABASE opticadb; USE opticadb;
+CREATE DATABASE opticadb; 
 
-
+USE opticadb;
 
 CREATE TABLE Empleat(
     id INT NOT NULL AUTO_INCREMENT,
