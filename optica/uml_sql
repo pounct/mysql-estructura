@@ -26,3 +26,8 @@ CREATE TABLE Proveidor ( id Integer NOT NULL, nom String NOT NULL, adreca int NO
 CREATE TABLE Adreca ( id Integer NOT NULL, carrer String NOT NULL, numero Integer NOT NULL, pis Integer NOT NULL, porta Integer NOT NULL, ciutat String NOT NULL, codiPostal Integer NOT NULL, pais String NOT NULL, PRIMARY KEY (id) );
 
 ----> a llenar
+
+INSERT into MyTable(value) VALUES (1);
+INSERT into MyTable(
+
+SELECT preuTotal FROM venta WHERE client ="1"
