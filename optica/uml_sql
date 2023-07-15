@@ -78,4 +78,11 @@ CREATE TABLE Empleat(
     FOREIGN KEY(compraId) REFERENCES Compra(id) ON DELETE CASCADE,
     FOREIGN KEY(marcaId) REFERENCES Marca(id),
     FOREIGN KEY(ventaId) REFERENCES Venta(id)
+); CREATE TABLE Recomanat(
+    id INT NOT NULL AUTO_INCREMENT,
+    clientId INT NOT NULL,
+    nom VARCHAR(40) NOT NULL,
+    PRIMARY KEY(id),
+    INDEX ind(nom),
+    FOREIGN KEY(clientId) REFERENCES CLIENT(id)
 );
