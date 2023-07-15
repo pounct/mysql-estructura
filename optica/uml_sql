@@ -1,5 +1,6 @@
 estuctua Optica Cul d'Ampolla
-class-diagram-Cul d'Ampolla
+
+
 
 
 CREATE DATABASE opticadb; USE opticadb;
@@ -15,7 +16,7 @@ CREATE TABLE Ulleres(
     ventaId INT,
     PRIMARY KEY(id),
     INDEX compra_id(compraId),
-    FOREIGN KEY(compraId) REFERENCES Compra(id) ON DELETE CASCADE,
+    FOREIGN KEY(compraId) REFERENCES Compra(id),
     FOREIGN KEY(marcaId) REFERENCES Marca(id),
     FOREIGN KEY(ventaId) REFERENCES Venta(id)
 ); CREATE TABLE Marca(
@@ -29,16 +30,6 @@ CREATE TABLE Ulleres(
     poveidorId INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(poveidorId) REFERENCES Poveidor(id)
-); CREATE TABLE CLIENT(
-    id INT NOT NULL AUTO_INCREMENT,
-    nom VARCHAR(40) NOT NULL,
-    cognoms VARCHAR(40) NOT NULL,
-    adrecaId INT NOT NULL,
-    codiPostal INTEGER NOT NULL,
-    localitat VARCHAR(40) NOT NULL,
-    provincia VARCHAR(40) NOT NULL,
-    telefon INTEGER NOT NULL,
-    PRIMARY KEY(id)
 ); CREATE TABLE Venta(
     id INT NOT NULL AUTO_INCREMENT,
     dataV VARCHAR(10) NOT NULL,
@@ -78,6 +69,3 @@ CREATE TABLE Ulleres(
     pais VARCHAR(40) NOT NULL,
     PRIMARY KEY(id)
 );
-----> a llenar la db 
-
-
