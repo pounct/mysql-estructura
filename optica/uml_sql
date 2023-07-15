@@ -2,32 +2,82 @@ estuctua Optica Cul d'Ampolla
 class-diagram-Cul d'Ampolla
 
 
-CREATE DATABASE opticadb;
-
-USE opticadb;
-
-CREATE TABLE Ulleres ( id int NOT NULL AUTO_INCREMENT, graduacioVidres int NOT NULL, tipusMuntura String NOT NULL, colorMuntura String NOT NULL, ColorVidre String NOT NULL, preu Real NOT NULL, marca int NOT NULL, compra int NOT NULL, venta int, PRIMARY KEY (id)
+CREATE DATABASE opticadb; USE opticadb;
+CREATE TABLE Ulleres(
+    id INT NOT NULL AUTO_INCREMENT,
+    graduacioVidres INT NOT NULL,
+    tipusMuntura VARCHAR(40) NOT NULL,
+    colorMuntura VARCHAR(40) NOT NULL,
+    ColorVidre VARCHAR(40) NOT NULL,
+    preu REAL NOT NULL,
+    marcaId INT NOT NULL,
+    compraId INT NOT NULL,
+    ventaId INT,
+    PRIMARY KEY(id),
+    INDEX compra_id(compraId),
+    FOREIGN KEY(compraId) REFERENCES Compra(id) ON DELETE CASCADE,
+    FOREIGN KEY(marcaId) REFERENCES Marca(id),
+    FOREIGN KEY(ventaId) REFERENCES Venta(id)
+); CREATE TABLE Marca(
+    id INT NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(40) NOT NULL,
+    PRIMARY KEY(id)
+); CREATE TABLE Compra(
+    id INT NOT NULL AUTO_INCREMENT,
+    dataC VARCHAR(10) NOT NULL,
+    preuTotal REAL NOT NULL,
+    poveidorId INT NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(poveidorId) REFERENCES Poveidor(id)
+); CREATE TABLE CLIENT(
+    id INT NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(40) NOT NULL,
+    cognoms VARCHAR(40) NOT NULL,
+    adrecaId INT NOT NULL,
+    codiPostal INTEGER NOT NULL,
+    localitat VARCHAR(40) NOT NULL,
+    provincia VARCHAR(40) NOT NULL,
+    telefon INTEGER NOT NULL,
+    PRIMARY KEY(id)
+); CREATE TABLE Venta(
+    id INT NOT NULL AUTO_INCREMENT,
+    dataV VARCHAR(10) NOT NULL,
+    CLIENT INT NOT NULL,
+    preuTotal REAL NOT NULL,
+    PRIMARY KEY(id)
+); CREATE TABLE CLIENT(
+    id INT NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(40) NOT NULL,
+    adrecaId INT NOT NULL,
+    telefon INTEGER NOT NULL,
+    email VARCHAR(60) NOT NULL,
+    dataRegistre VARCHAR(10) NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(adrecaId) REFERENCES Adreca(id)
+); CREATE TABLE Empleat(
+    id INT NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(40) NOT NULL,
+    PRIMARY KEY(id)
+); CREATE TABLE Proveidor(
+    id INT NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(40) NOT NULL,
+    adrecaId INT NOT NULL,
+    telefon INTEGER NOT NULL,
+    fax INTEGER NOT NULL,
+    nif VARCHAR(60) NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(adrecaId) REFERENCES Adreca(id)
+); CREATE TABLE Adreca(
+    id INT NOT NULL AUTO_INCREMENT,
+    carrer VARCHAR(100) NOT NULL,
+    numero INTEGER NOT NULL,
+    pis INTEGER NOT NULL,
+    porta INTEGER NOT NULL,
+    ciutat VARCHAR(40) NOT NULL,
+    codiPostal INTEGER NOT NULL,
+    pais VARCHAR(40) NOT NULL,
+    PRIMARY KEY(id)
 );
+----> a llenar la db 
 
-CREATE TABLE Marca ( id Integer NOT NULL, nom String NOT NULL, PRIMARY KEY (id) );
 
-CREATE TABLE Compra ( id Integer NOT NULL, data String NOT NULL, preuTotal Real NOT NULL, poveidor int NOT NULL, PRIMARY KEY (id) );
-
-CREATE TABLE Client ( identificador Integer NOT NULL, nom String NOT NULL, cognoms String NOT NULL, adreca int NOT NULL, codiPostal Integer NOT NULL, localitat String NOT NULL, provincia String NOT NULL, telefon Integer NOT NULL, PRIMARY KEY (id) );
-
-CREATE TABLE Venta ( id Integer NOT NULL, data String NOT NULL, client int NOT NULL, preuTotal Real NOT NULL PRIMARY KEY (id) );
-
-CREATE TABLE Client ( id Integer NOT NULL, nom String NOT NULL, adreca int NOT NULL, telefon Integer NOT NULL, email String NOT NULL, dataRegistre String NOT NULL, PRIMARY KEY (id) );
-
-CREATE TABLE Empleat ( id Integer NOT NULL, nom String NOT NULL, PRIMARY KEY (id) );
-
-CREATE TABLE Proveidor ( id Integer NOT NULL, nom String NOT NULL, adreca int NOT NULL, telefon Integer NOT NULL, fax Integer NOT NULL, nif String NOT NULL, PRIMARY KEY (id) );
-
-CREATE TABLE Adreca ( id Integer NOT NULL, carrer String NOT NULL, numero Integer NOT NULL, pis Integer NOT NULL, porta Integer NOT NULL, ciutat String NOT NULL, codiPostal Integer NOT NULL, pais String NOT NULL, PRIMARY KEY (id) );
-
-----> a llenar
-
-INSERT into MyTable(value) VALUES (1);
-INSERT into MyTable(
-
-SELECT preuTotal FROM venta WHERE client ="1"
