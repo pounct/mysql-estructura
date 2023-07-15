@@ -6,7 +6,8 @@ uml :
 
 conceptor phpmyadmin:
 
-![image](https://github.com/pounct/mysql-estructura/assets/53088375/295f13f4-ad93-4670-b56a-be46e65edcb1)
+![image](https://github.com/pounct/mysql-estructura/assets/53088375/5445b6d0-db64-486e-a174-7f41666e8417)
+
 
 
 USE opticadb;
@@ -81,6 +82,13 @@ CREATE TABLE Empleat(
     FOREIGN KEY(compraId) REFERENCES Compra(id) ON DELETE CASCADE,
     FOREIGN KEY(marcaId) REFERENCES Marca(id),
     FOREIGN KEY(ventaId) REFERENCES Venta(id)
+); CREATE TABLE Recomanat(
+    id INT NOT NULL AUTO_INCREMENT,
+    clientId INT NOT NULL,
+    nom VARCHAR(40) NOT NULL,
+    PRIMARY KEY(id),
+    INDEX ind(nom),
+    FOREIGN KEY(clientId) REFERENCES CLIENT(id)
 );
 ----> a llenar**
 
