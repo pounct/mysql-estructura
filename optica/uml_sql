@@ -85,4 +85,11 @@ CREATE TABLE Empleat(
     PRIMARY KEY(id),
     INDEX ind(nom),
     FOREIGN KEY(clientId) REFERENCES CLIENT(id)
+); CREATE TABLE MarcaProvridor(
+    proveidorid INT NOT NULL,
+    marcaId INT NOT NULL,
+    PRIMARY KEY(marcaId, proveidorid),
+    INDEX ind(marcaId),
+    FOREIGN KEY(marcaId) REFERENCES marca(id),
+    FOREIGN KEY(proveidorid) REFERENCES Proveidor(id)
 );
