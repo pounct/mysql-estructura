@@ -1,12 +1,14 @@
 
 class-diagram-Cul d'Ampolla
 uml :
-![image](https://github.com/pounct/mysql-estructura/assets/53088375/4c787d17-9d46-472a-ae2e-cbb232ecb765)
+![Captura de pantalla 2023-07-17 003435](https://github.com/pounct/mysql-estructura/assets/53088375/f1a7f311-b46a-45ea-b591-d18fe6f3b985)
+
 
 
 conceptor phpmyadmin:
 
-![image](https://github.com/pounct/mysql-estructura/assets/53088375/5445b6d0-db64-486e-a174-7f41666e8417)
+![Captura de pantalla 2023-07-17 003236](https://github.com/pounct/mysql-estructura/assets/53088375/1e7e0773-be48-4215-84cd-263fb9097a3b)
+
 
 
 
@@ -89,6 +91,13 @@ CREATE TABLE Empleat(
     PRIMARY KEY(id),
     INDEX ind(nom),
     FOREIGN KEY(clientId) REFERENCES CLIENT(id)
+); CREATE TABLE MarcaProvridor(
+    proveidorid INT NOT NULL,
+    marcaId INT NOT NULL,
+    PRIMARY KEY(marcaId, proveidorid),
+    INDEX ind(marcaId),
+    FOREIGN KEY(marcaId) REFERENCES marca(id),
+    FOREIGN KEY(proveidorid) REFERENCES Proveidor(id)
 );
 ----> a llenar**
 
