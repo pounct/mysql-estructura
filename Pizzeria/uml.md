@@ -6,3 +6,4 @@ phpmyadmin
 
 ![Captura de pantalla 2023-07-16 023915](https://github.com/pounct/mysql-estructura/assets/53088375/89ed69d1-260a-46f9-b2a4-613b0ce83b28)
 
+blsbla
