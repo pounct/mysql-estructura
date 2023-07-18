@@ -12,7 +12,7 @@ WHERE
 
 
 
-Llista els diferents models d'ulleres que ha venut un empleat/da durant un any.
+-- Llista els diferents models d'ulleres que ha venut un empleat/da durant un any.
 
 SELECT
     ulleres.*
@@ -23,7 +23,7 @@ WHERE
     venta.clientId = 1 AND YEAR(venta.dataV) = 2021;
 
 
-Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica.
+-- Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica.
 
 SELECT
     proveidor.*
