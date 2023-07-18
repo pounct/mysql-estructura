@@ -1,1 +1,35 @@
 
+Òptica:
+
+-- Llista el total de factures d'un client/a en un període determinat.
+
+SELECT
+    SUM(venta.preuTotal)
+FROM
+    venta
+WHERE
+    venta.clientId = 1 AND (venta.dataV BETWEEN '2022-04-01' AND '2022-04-20');
+
+
+
+Llista els diferents models d'ulleres que ha venut un empleat/da durant un any.
+
+SELECT
+    ulleres.*
+FROM
+    venta
+JOIN ulleres ON venta.id = ulleres.ventaId
+WHERE
+    venta.clientId = 1 AND YEAR(venta.dataV) = 2021;
+
+
+Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica.
+
+SELECT
+    proveidor.*
+FROM
+    venta
+JOIN ulleres ON venta.id = ulleres.ventaId
+JOIN compra ON ulleres.compraId = compra.id
+JOIN proveidor ON compra.poveidorId = proveidor.id;
+
