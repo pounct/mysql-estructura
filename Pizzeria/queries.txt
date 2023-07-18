@@ -1,0 +1,27 @@
+Pizzeria:
+
+
+-- Llista quants productes de categoria 'Begudes' s'han venut en una determinada localitat.
+
+SELECT
+    SUM(liniacomanda.quantitat)
+FROM
+    liniacomanda
+JOIN comanda ON liniacomanda.id = comanda.id
+JOIN botiga ON comanda.botigaId = botiga.id
+JOIN localitat ON botiga.localitatId = localitat.id
+WHERE
+    localitat.nom = 'localitat_1';
+
+
+
+-- Llista quantes comandes ha efectuat un determinat empleat/da.
+
+SELECT
+    COUNT(comanda.id)
+FROM
+    comanda
+JOIN botiga ON comanda.botigaId = botiga.id
+JOIN empleat ON botiga.id = empleat.botigaId
+WHERE
+    empleat.id = 1;
