@@ -1,1 +1,195 @@
+DROP
+    DATABASE IF EXISTS spotify;
+CREATE DATABASE spotify CHARACTER SET utf8mb4; USE
+    spotify;
 
+CREATE TABLE Usuari
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(80) NOT NULL,
+    password VARCHAR(20) NOT NULL,
+    NomUsuari VARCHAR(20) NOT NULL,
+    dataNaxement DATE NOT NULL,
+    sexe VARCHAR(10) NOT NULL,
+    pais VARCHAR(40) NOT NULL,
+    codiPostal INT NOT NULL
+);
+
+CREATE TABLE Artista
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Nom VARCHAR() NOT NULL,
+    imatge VARCHAR() NOT NULL
+);
+
+CREATE TABLE Album
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    titol VARCHAR() NOT NULL,
+    anyPublicacio Integer NOT NULL,
+    imatge VARCHAR() NOT NULL
+    
+);
+
+
+CREATE TABLE Cancio
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    titol VARCHAR() NOT NULL,
+    durada INT NOT NULL,
+    reproduccions INT NOT NULL,
+    id_album INT UNSIGNED NOT NULL,
+    FOREIGN KEY (id_album) REFERENCES Album(id)
+);
+
+CREATE TABLE EstiloMusica
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(40) NOT NULL,
+    id_artista INT UNSIGNED NOT NULL
+    
+);
+
+CREATE TABLE Free
+(
+    id INT UNSIGNED PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES Usuari(id)
+    
+);
+
+CREATE TABLE Premium
+(
+    id INT UNSIGNED  PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES Usuari(id)
+);
+
+CREATE TABLE PlayList
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR() NOT NULL,
+    eliminada Boolean NOT NULL
+);
+CREATE TABLE CreacioPL
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataHora DATETIME NOT NULL,
+    id_usari INT UNSIGNED  NOT NULL,
+    id_playlist INT UNSIGNED  NOT NULL,
+    FOREIGN KEY (id_usari) REFERENCES Usuari(id),
+    FOREIGN KEY (id_playlist) REFERENCES PlayList(id)
+);
+
+CREATE TABLE Esborrada
+(
+    id INT UNSIGNED  PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES PlayList(id)
+);
+CREATE TABLE Activa
+(
+    id INT UNSIGNED  PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES PlayList(id)
+);
+CREATE TABLE Compartida
+(
+    id INT UNSIGNED PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES Activa(id)
+);
+
+CREATE TABLE Seguimiento
+(
+    id_usari INT UNSIGNED  NOT NULL,
+    id_artista INT UNSIGNED  NOT NULL,
+    PRIMARY KEY(id_usari,id_artista),
+    FOREIGN KEY (id_usari) REFERENCES Usuari(id),
+    FOREIGN KEY (id_artista) REFERENCES Artista(id)    
+);
+
+CREATE TABLE Publicacio
+(
+    id_album INT UNSIGNED  NOT NULL,
+    id_artista INT UNSIGNED  NOT NULL,
+    PRIMARY KEY(id_album,id_artista),
+    FOREIGN KEY (id_album) REFERENCES Album(id),
+    FOREIGN KEY (id_artista) REFERENCES Artista(id)    
+);
+
+
+
+CREATE TABLE Targeta
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Numero Integer NOT NULL,
+    caducitat DATE NOT NULL,
+    codiSegeritat Integer NOT NULL
+);
+
+
+CREATE TABLE addicio
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataHora DATETIME NOT NULL,
+    id_usari INT UNSIGNED NOT NULL,    
+    id_compartida  INT UNSIGNED NOT NULL
+);
+
+CREATE TABLE Pagament
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    datap DATE NOT NULL,
+    total Real NOT NULL
+);
+
+
+
+
+
+CREATE TABLE Subscripcio
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataInici DATE NOT NULL,
+    dataRenovacio DATE NOT NULL
+);
+
+CREATE TABLE PayPal
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    NomUsuari VARCHAR(40) NOT NULL
+);
+
+
+
+CREATE TABLE Eliminacio
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataHora DATE NOT NULL,
+    id_creaciopl INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_creaciopl) REFERENCES CreacioPL(id)
+);
+
+CREATE TABLE Recuperacio
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataHora DATETIME NOT NULL,
+    id_eliminacio INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_eliminacio) REFERENCES Eliminacio(id)
+);
+
+
+CREATE TABLE Favorite
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_usari INT UNSIGNED NOT NULL,
+    FOREIGN KEY (id_usari) REFERENCES Usuari(id)
+);
+CREATE TABLE FavoriteAlbum
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_favorite INT UNSIGNED NOT NULL,
+    FOREIGN KEY (id_favorite) REFERENCES Favorite(id)
+);
+CREATE TABLE FavoriteCancio
+(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_favorite INT UNSIGNED NOT NULL,
+    FOREIGN KEY (id_favorite) REFERENCES Favorite(id)
+);
