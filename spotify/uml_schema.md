@@ -5,6 +5,7 @@ uml :
 
 db_schema:
 
-![Uploading Captura de pantalla 2023-07-23 231833.jpg…]()
+![Captura de pantalla 2023-07-24 002322](https://github.com/pounct/mysql-estructura/assets/53088375/9c2bb9fa-8417-4d4a-8260-abc95f3fdd60)
+
 
 
