@@ -7,11 +7,18 @@ SELECT
     SUM(liniacomanda.quantitat)
 FROM
     liniacomanda
+JOIN producte ON liniacomanda.producteId = producte.id
 JOIN comanda ON liniacomanda.id = comanda.id
 JOIN botiga ON comanda.botigaId = botiga.id
 JOIN localitat ON botiga.localitatId = localitat.id
 WHERE
-    localitat.nom = 'localitat_1';
+    localitat.nom = 'localitat_1' AND producte.tipo = 'beguda'
+GROUP BY
+    producte.tipo
+ORDER BY
+    SUM(liniacomanda.quantitat)
+DESC
+    ;
 
 
 
@@ -24,4 +31,6 @@ FROM
 JOIN botiga ON comanda.botigaId = botiga.id
 JOIN empleat ON botiga.id = empleat.botigaId
 WHERE
-    empleat.id = 1;
+    empleat.id = 1
+GROUP BY
+    empleat.id;
