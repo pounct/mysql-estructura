@@ -4,11 +4,16 @@
 -- Llista el total de factures d'un client/a en un període determinat.
 
 SELECT
-    SUM(venta.preuTotal)
+    SUM(preuTotal),
+    clientId
 FROM
     venta
 WHERE
-    venta.clientId = 1 AND (venta.dataV BETWEEN '2022-04-01' AND '2022-04-20');
+    venta.clientId = 1 AND(
+        venta.dataV BETWEEN '2022-04-01' AND '2022-04-20'
+    )
+GROUP BY
+    clientId;
 
 
 
@@ -26,10 +31,17 @@ WHERE
 -- Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica.
 
 SELECT
-    proveidor.*
+    proveidor.*,
+    COUNT(ulleres.id)
 FROM
     venta
 JOIN ulleres ON venta.id = ulleres.ventaId
 JOIN compra ON ulleres.compraId = compra.id
-JOIN proveidor ON compra.poveidorId = proveidor.id;
+JOIN proveidor ON compra.poveidorId = proveidor.id
+GROUP BY
+    (proveidor.id)
+ORDER BY
+    COUNT(ulleres.id)
+DESC
+    ;
 
