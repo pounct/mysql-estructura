@@ -1,0 +1,84 @@
+DROP
+    DATABASE IF EXISTS optica;
+CREATE DATABASE optica CHARACTER SET utf8mb4; USE
+    optica;
+CREATE TABLE Empleat(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    INDEX ind(id)
+); CREATE TABLE Marca(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    INDEX ind(id)
+); CREATE TABLE Adreca(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    carrer VARCHAR(100) NOT NULL,
+    numero INT NOT NULL,
+    pis INT NOT NULL,
+    porta INT NOT NULL,
+    ciutat VARCHAR(40) NOT NULL,
+    codiPostal INT NOT NULL,
+    pais VARCHAR(40) NOT NULL,
+    INDEX ind(id)
+); CREATE TABLE Proveidor(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    adrecaId INT UNSIGNED NOT NULL,
+    telefon VARCHAR(9) NOT NULL,
+    fax VARCHAR(9) NOT NULL,
+    nif VARCHAR(9) UNIQUE,
+    INDEX ind(ID),
+    FOREIGN KEY(adrecaId) REFERENCES Adreca(id)
+); CREATE TABLE Compra(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataC DATE NOT NULL,
+    preuTotal REAL NOT NULL,
+    poveidorId INT UNSIGNED NOT NULL,
+    INDEX ind(id),
+    FOREIGN KEY(poveidorId) REFERENCES Proveidor(id)
+); CREATE TABLE CLIENT(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    adrecaId INT UNSIGNED NOT NULL,
+    telefon VARCHAR(9) NOT NULL,
+    email VARCHAR(60) NOT NULL,
+    dataRegistre DATE NOT NULL,
+    INDEX ind(id),
+    FOREIGN KEY(adrecaId) REFERENCES Adreca(id)
+); CREATE TABLE Venta(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataV DATE NOT NULL,
+    clientId INT UNSIGNED NOT NULL,
+    empleatId INT UNSIGNED NOT NULL,
+    preuTotal REAL NOT NULL,
+    INDEX ind(id),
+    FOREIGN KEY(clientId) REFERENCES CLIENT(id),
+    FOREIGN KEY(empleatId) REFERENCES Empleat(id)
+); CREATE TABLE Ulleres(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    graduacioVidres INT NOT NULL,
+    tipusMuntura VARCHAR(40) NOT NULL,
+    colorMuntura VARCHAR(40) NOT NULL,
+    ColorVidre VARCHAR(40) NOT NULL,
+    preu REAL NOT NULL,
+    marcaId INT UNSIGNED NOT NULL,
+    compraId INT UNSIGNED NOT NULL,
+    ventaId INT UNSIGNED,
+    INDEX ind(id),
+    FOREIGN KEY(compraId) REFERENCES Compra(id) ON DELETE CASCADE,
+    FOREIGN KEY(marcaId) REFERENCES Marca(id),
+    FOREIGN KEY(ventaId) REFERENCES Venta(id)
+); CREATE TABLE Recomanat(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    clientId INT UNSIGNED NOT NULL,
+    nom VARCHAR(40) NOT NULL,
+    INDEX ind(nom),
+    FOREIGN KEY(clientId) REFERENCES CLIENT(id)
+); CREATE TABLE MarcaProvridor(
+    proveidorid INT UNSIGNED NOT NULL,
+    marcaId INT UNSIGNED NOT NULL,
+    PRIMARY KEY(marcaId, proveidorid),
+    INDEX ind(marcaId),
+    FOREIGN KEY(marcaId) REFERENCES marca(id),
+    FOREIGN KEY(proveidorid) REFERENCES Proveidor(id)
+);
