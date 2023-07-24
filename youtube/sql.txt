@@ -1,0 +1,99 @@
+DROP
+    DATABASE IF EXISTS youtube;
+CREATE DATABASE youtube CHARACTER SET utf8mb4; USE
+    youtube;
+CREATE TABLE Usario(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) NOT NULL,
+    PASSWORD VARCHAR(50) NOT NULL,
+    nomUsario VARCHAR(50) NOT NULL,
+    dataNaxement DATE NOT NULL,
+    sexe VARCHAR(20) NOT NULL,
+    pais VARCHAR(50) NOT NULL,
+    codiPostal INT NOT NULL
+); CREATE TABLE Canal(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,
+    descripcio VARCHAR(150) NOT NULL
+); CREATE TABLE Video(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    descripcio VARCHAR(150) NOT NULL,
+    grandaria INT UNSIGNED NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    durada INT UNSIGNED NOT NULL,
+    thumbnail VARCHAR(50) NOT NULL,
+    reproduccions INT NOT NULL,
+    likes INT,
+    dislikes INT,
+    id_etiqueta INT UNSIGNED NOT NULL
+); CREATE TABLE Etiqueta(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_usario INT UNSIGNED NOT NULL,
+    id_video INT UNSIGNED NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    dataHora DATETIME NOT NULL,
+    FOREIGN KEY(id_usario) REFERENCES Usario(id),
+    FOREIGN KEY(id_video) REFERENCES Video(id)
+); CREATE TABLE Comentari(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_video INT UNSIGNED NOT NULL,
+    id_usario INT UNSIGNED NOT NULL,
+    textComentari VARCHAR(200) NOT NULL,
+    dataHora DATETIME NOT NULL,
+    FOREIGN KEY(id_video) REFERENCES Video(id),
+    FOREIGN KEY(id_usario) REFERENCES Usario(id)
+); CREATE TABLE Agrada(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_usario INT UNSIGNED NOT NULL,
+    id_comentari INT UNSIGNED NOT NULL,
+    dataHora DATETIME NOT NULL,
+    FOREIGN KEY(id_usario) REFERENCES Usario(id),
+    FOREIGN KEY(id_comentari) REFERENCES Comentari(id)
+); CREATE TABLE EstatVideo(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    estado ENUM('public', 'ocult', 'privat') NOT NULL,
+    FOREIGN KEY(id) REFERENCES Video(id)
+); CREATE TABLE CreacioPL(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_usario INT UNSIGNED NOT NULL,
+    dataHora VARCHAR(50) NOT NULL,
+    FOREIGN KEY(id_usario) REFERENCES Usario(id)
+); CREATE TABLE Dislike(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+); CREATE TABLE PlayList(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_creacio_pl INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_creacio_pl) REFERENCES CreacioPL(id)
+); CREATE TABLE EstatPlayList(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    estado ENUM('public', 'privat') NOT NULL,
+    FOREIGN KEY(id) REFERENCES PlayList(id)
+); CREATE TABLE VideoPlayList(
+    id_video INT UNSIGNED NOT NULL,
+    id_playlist INT UNSIGNED NOT NULL,
+    PRIMARY KEY(id_video, id_playlist),
+    FOREIGN KEY(id_video) REFERENCES Video(id),
+    FOREIGN KEY(id_playlist) REFERENCES PlayList(id)
+); CREATE TABLE Opinion(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataHora DATETIME NOT NULL,
+    estado ENUM('like', 'dislike') NOT NULL,
+    id_video INT UNSIGNED NOT NULL,
+    id_usario INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_video) REFERENCES Video(id),
+    FOREIGN KEY(id_usario) REFERENCES Usario(id)
+); CREATE TABLE CreacioCanal(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataHora DATETIME NOT NULL,
+    id_usario INT UNSIGNED NOT NULL,
+    id_canal INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_usario) REFERENCES Usario(id),
+    FOREIGN KEY(id_canal) REFERENCES Canal(id)
+); CREATE TABLE Subscripcio(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataSubscripcio DATE NOT NULL,
+    id_usario INT UNSIGNED NOT NULL,
+    id_canal INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_usario) REFERENCES Usario(id),
+    FOREIGN KEY(id_canal) REFERENCES Canal(id)
+);
