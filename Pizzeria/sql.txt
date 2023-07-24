@@ -1,0 +1,99 @@
+DROP
+    DATABASE IF EXISTS pizzeria;
+CREATE DATABASE pizzeria CHARACTER SET utf8mb4; USE
+    pizzeria;
+
+CREATE TABLE Provincia(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    INDEX ind(id),
+    nom VARCHAR(40) NOT NULL
+); CREATE TABLE Localitat(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    provinciaId INT UNSIGNED NOT NULL,
+    nom VARCHAR(40) NOT NULL,
+    INDEX ind(id),
+    FOREIGN KEY(provinciaId) REFERENCES Provincia(id)
+); CREATE TABLE CLIENT(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    cognoms VARCHAR(100) NOT NULL,
+    adreca VARCHAR(151) NOT NULL,
+    codiPostal INT NOT NULL,
+    telefon VARCHAR(9) NOT NULL,
+    INDEX ind(id)
+); CREATE TABLE Producte(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    descripcio VARCHAR(250) NOT NULL,
+    imatge VARCHAR(120) NOT NULL,
+    preu REAL NOT NULL,
+    INDEX ind(id),
+    tipo ENUM('hamburguesa', 'pizza', 'beguda') NOT NULL
+); CREATE TABLE Hamburguesa(
+    id INT UNSIGNED  PRIMARY KEY,
+    categoria VARCHAR(10),
+    INDEX ind(id),
+    FOREIGN KEY(id) REFERENCES Producte(id)
+); CREATE TABLE Pizza(
+    id INT UNSIGNED  PRIMARY KEY,
+    categoria VARCHAR(10),
+    INDEX ind(id),
+    FOREIGN KEY(id) REFERENCES Producte(id)
+); CREATE TABLE Beguda(
+    id INT UNSIGNED  PRIMARY KEY,
+    categoria VARCHAR(10),
+    INDEX ind(id),
+    FOREIGN KEY(id) REFERENCES Producte(id)
+); CREATE TABLE Botiga(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    adreca VARCHAR(150) NOT NULL,
+    codiPostal INTEGER NOT NULL,
+    localitatId INT UNSIGNED NOT NULL,
+    INDEX ind(id),
+    FOREIGN KEY(localitatId) REFERENCES Localitat(id)
+); CREATE TABLE Empleat(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    cognoms VARCHAR(80) NOT NULL,
+    nif VARCHAR(9) NOT NULL,
+    telefon VARCHAR(9) NOT NULL,
+    botigaId INT UNSIGNED NOT NULL,
+    INDEX ind(id),
+    tipo ENUM('cuiner', 'repartidor') NOT NULL,
+    FOREIGN KEY(botigaId) REFERENCES Botiga(id)
+); CREATE TABLE Comanda(
+   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dataHora DATETIME NOT NULL,
+    clientId INT UNSIGNED NOT NULL,
+    botigaId INT UNSIGNED NOT NULL,
+    preuTotal REAL NOT NULL,
+    INDEX ind(id),
+    FOREIGN KEY(clientId) REFERENCES CLIENT(id),
+    FOREIGN KEY(botigaId) REFERENCES Botiga(id)
+); CREATE TABLE liniaComanda(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    comandaId INT UNSIGNED NOT NULL,
+    producteId INT UNSIGNED NOT NULL,
+    quantitat INT NOT NULL,
+    INDEX ind(id),
+    FOREIGN KEY(comandaId) REFERENCES Comanda(id),
+    FOREIGN KEY(producteId) REFERENCES Producte(id)
+); CREATE TABLE Repartidor(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    funcio VARCHAR(10),
+    INDEX ind(id),
+    FOREIGN KEY(id) REFERENCES Empleat(id)
+); CREATE TABLE Lliurament(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    comandaId INT UNSIGNED NOT NULL,
+    repartidorId INT UNSIGNED NOT NULL,
+    INDEX ind(id),
+    FOREIGN KEY(comandaId) REFERENCES Comanda(id),
+    FOREIGN KEY(repartidorId) REFERENCES Repartidor(id)
+); CREATE TABLE Cuiner(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    funcio VARCHAR(10),
+    INDEX ind(id),
+    FOREIGN KEY(id) REFERENCES Empleat(id)
+);
