@@ -20,6 +20,10 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `optica`
 --
+DROP
+    DATABASE IF EXISTS optica;
+CREATE DATABASE optica CHARACTER SET utf8mb4; USE
+    optica;
 
 -- --------------------------------------------------------
 
